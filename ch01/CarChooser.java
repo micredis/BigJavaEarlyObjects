@@ -30,6 +30,7 @@ public class CarChooser {
 			String sAnnualMileage = reader.readLine();
 			if (sAnnualMileage.isEmpty() || !sAnnualMileage.matches("\\d+")) {
 				System.out.println("Incorrect input");
+				reader.close();
 				return;
 			}
 			annualMileage = Integer.parseInt(sAnnualMileage);
