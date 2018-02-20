@@ -18,9 +18,19 @@ public class TilingFloor {
 
 	public void go() {
 		readInput();
-		/*for (int i = 0; i < width / 4; i += 4) {
-
-		}*/
+		boolean isBlack = true;
+		for (int i = 0; i < height; i += 4) {
+			for (int j = 0; j < width; j++) {
+				if (isBlack) {
+					System.out.print("xxxx");
+					isBlack = false;
+				} else {
+					System.out.print("    ");
+					isBlack = true;
+				}
+			}
+			System.out.println();
+		}
 	}
 
 	public void readInput() {
@@ -52,7 +62,7 @@ public class TilingFloor {
 		}
 	}
 
-	public void printBlackTile() {
+	/*public void printBlackTile() {
 		System.out.println("xxxx");
 		System.out.println("xxxx");
 		System.out.println("xxxx");
@@ -64,5 +74,5 @@ public class TilingFloor {
 		System.out.println("    ");
 		System.out.println("    ");
 		System.out.println("    ");		
-	}
+	}*/
 }
