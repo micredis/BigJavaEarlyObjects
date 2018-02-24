@@ -19,7 +19,7 @@ public class TilingFloor {
 	public void go() {
 		readInput();
 		boolean isBlack = true;
-		for (int i = 0; i < height; i++) {
+		for (int i = 0; i < height / 4; i++) {
 			for (int j = 0; j < 4; j++) {
 				for (int k = 0; k < width; k += 4) {
 					if (isBlack) {
@@ -32,7 +32,8 @@ public class TilingFloor {
 				}
 				System.out.println();
 			}
-			System.out.println();
+			//System.out.println();
+			isBlack = !isBlack;
 		}
 	}
 
