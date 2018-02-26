@@ -20,19 +20,7 @@ public class TilingFloor {
 		readInput();
 		boolean isBlack = true;
 		for (int i = 0; i < height / 4; i++) {
-			for (int j = 0; j < 4; j++) {
-				for (int k = 0; k < width; k += 4) {
-					if (isBlack) {
-						System.out.print("xxxx");
-						isBlack = false;
-					} else {
-						System.out.print("    ");
-						isBlack = true;
-					}
-				}
-				System.out.println();
-			}
-			//System.out.println();
+			printRow(width / 4, isBlack);
 			isBlack = !isBlack;
 		}
 	}
@@ -66,17 +54,23 @@ public class TilingFloor {
 		}
 	}
 
-	/*public void printBlackTile() {
-		System.out.println("xxxx");
-		System.out.println("xxxx");
-		System.out.println("xxxx");
-		System.out.println("xxxx");		
+	public void printRow(int numOfTiles, boolean isFirstBlack) {
+		// tiles are 4 x 4 inches:
+		// xxxx
+		// xxxx
+		// xxxx
+		// xxxx
+		for (int i = 0; numOfTiles > 0 && i < 4; i++) {
+			boolean isBlack = isFirstBlack;
+			for (int j = 0; j < numOfTiles; j++) {
+				if (isBlack) {
+					System.out.print("xxxx");
+				} else {
+					System.out.print("    ");
+				}
+				isBlack = !isBlack;
+			}
+			System.out.println();
+		}
 	}
-
-	public void printWhiteTile() {
-		System.out.println("    ");
-		System.out.println("    ");
-		System.out.println("    ");
-		System.out.println("    ");		
-	}*/
 }
