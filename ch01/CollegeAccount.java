@@ -31,6 +31,7 @@ public class CollegeAccount {
 			amount += monthlyInterest;
 			System.out.format("Year %d. Account status: $%,.2f. Interest: $%,.2f.%n",
 				year, amount, monthlyInterest);
+			// in case of ever-growing account, terminate the method
 			if (monthlyExpenses < monthlyInterest) {
 				System.out.println("Account will never be depleted.");
 				return;
