@@ -20,7 +20,7 @@ public class SquareRootBabylon {
 		System.out.format("The square root of %f is %f%n", a, sqrtBab(a));
 	}
 
-	// return input from the console as a double if it was a number;
+	// return input from the console as a double if it's a number;
 	// return -1 otherwise
 	public double readA() {
 		double num = -1;
