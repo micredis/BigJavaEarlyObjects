@@ -33,7 +33,7 @@ public class DiscountCardEvaluator {
 			mealsPerDay = Integer.parseInt(sMealsPerDay);
 		} catch (NullPointerException | NumberFormatException ex) {
 			System.out.println("Incorrect input data. Program terminate.");
-			ex.printStackTrace();
+			return;
 		}
 		int daysEffective;
 		int daysNotEffective;
@@ -47,7 +47,8 @@ public class DiscountCardEvaluator {
 		double sumNoCard = mlPrice * mealsPerDay * days;
 		double sumYesCard = mlPrice * (mealsPerDay - mealsPerDay / (mlsThreshold + 1)) * daysEffective
 			+ mlPrice * mealsPerDay * daysNotEffective + crdPrice;
-		String result = (sumNoCard < sumYesCard) ? "not a good buy" : "a good buy";
+		String result = (sumNoCard < sumYesCard) ? "not a good buy"
+			: (sumNoCard > sumYesCard) ? "a good buy" : "optional";
 		System.out.println("-------------------------------------------------------------------------");
 		System.out.format("If you buy a discount card, you would spend $%,.2f, and%n", sumYesCard);
 		System.out.format("if you DO NOT buy a discount card, you would spend $%,.2f,%n", sumNoCard);
@@ -70,6 +71,7 @@ public class DiscountCardEvaluator {
 		}
 	}
 
+	// this class is redundant
 	class DiscountCard {
 		private double cardPrice;
 		private int daysValid;
