@@ -7,23 +7,23 @@ do you need?
 
 import java.io.*;
 
-public class DiscoutCardEvaluator {
+public class DiscountCardEvaluator {
 	private String[] cardParameters;
 	private String sDays;
 	private String sMealsPerDay;
 
 	public static void main(String[] args) {
-		new DiscoutCardEvaluator().go();
+		new DiscountCardEvaluator().go();
 	}
 
 	public void go() {
 		readData();
-		double crdPrice; // the discount card price
-		int dsValid; // the number of days when the card is valid
-		double mlPrice; // the meal price
-		int mlsThreshold; // how many meals you have to buy to get a free one
-		int days; // the number of days to buy meals at the cafeteria
-		int mealsPerDay; // the average number of meals you buy every day
+		double crdPrice = 0.0; // the discount card price
+		int dsValid = 0; // the number of days when the card is valid
+		double mlPrice = 0.0; // the meal price
+		int mlsThreshold = 0; // how many meals you have to buy to get a free one
+		int days = 0; // the number of days to buy meals at the cafeteria
+		int mealsPerDay = 0; // the average number of meals you buy every day
 		try {
 			crdPrice = Double.parseDouble(cardParameters[0]);
 			dsValid = Integer.parseInt(cardParameters[1]);
@@ -33,22 +33,37 @@ public class DiscoutCardEvaluator {
 			mealsPerDay = Integer.parseInt(sMealsPerDay);
 		} catch (NullPointerException | NumberFormatException ex) {
 			System.out.println("Incorrect input data. Program terminate.");
+			ex.printStackTrace();
 		}
-		int daysEfective = (dsValid < days) ? (days - dsValid) : days;
-		double noCardExpenditures = mlPrice * mealsPerDay * days;
-		
+		int daysEffective;
+		int daysNotEffective;
+		if (dsValid < days) {
+			daysEffective = dsValid;
+			daysNotEffective = days - dsValid;
+		} else {
+			daysEffective = days;
+			daysNotEffective = 0;
+		}
+		double sumNoCard = mlPrice * mealsPerDay * days;
+		double sumYesCard = mlPrice * (mealsPerDay - mealsPerDay / (mlsThreshold + 1)) * daysEffective
+			+ mlPrice * mealsPerDay * daysNotEffective + crdPrice;
+		String result = (sumNoCard < sumYesCard) ? "not a good buy" : "a good buy";
+		System.out.println("-------------------------------------------------------------------------");
+		System.out.format("If you buy a discount card, you would spend $%,.2f, and%n", sumYesCard);
+		System.out.format("if you DO NOT buy a discount card, you would spend $%,.2f,%n", sumNoCard);
+		System.out.format("which means that the card is %s.%n", result);
 	}
 
-	public readData() {
+	public void readData() {
 		try {
 			BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 			System.out.println("Enter a discount card parameters, separated by commas with spaces in this order:");
 			System.out.println("card price, days valid, meal price, number of meals to buy to get one for free");
-			cardParameters = reader.readLine().split(", ");
+			this.cardParameters = reader.readLine().split(", ");
 			System.out.print("Enter the number of days you are going to buy meals at the cafeteria: ");
-			String sDays = reader.readLine();
+			this.sDays = reader.readLine();
 			System.out.print("Enter the average number of meals you buy every day: ");
-			String sMealsPerDay = reader.readLine();
+			this.sMealsPerDay = reader.readLine();
 			reader.close();
 		} catch (IOException ex) {
 			ex.printStackTrace();
