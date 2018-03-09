@@ -12,6 +12,7 @@ from) the following:
 */
 
 import java.io.*;
+import java.util.*;
 
 public class AnimalGreeting {
 	public static void main(String[] args) {
@@ -38,34 +39,11 @@ public class AnimalGreeting {
 	}
 
 	public void frogSays(String message, int lineMaxLength) {
-		String[] words = message.split(" ");
-		int charCount = 0;
-		int spaceCount = 0;
-		for (int i = 0; i < words.length; ) {
-			String word = words[i];
-			if (word.length() > lineMaxLength) {
-				String fore = word.substring(0, lineMaxLength);
-				String hide = word.substring(lineMaxLength);
-				word = fore;
-				words[i] = hide;
-			}
-			if (charCount + spaceCount + word.length() < lineMaxLength) {
-				System.out.print(word + " ");
-				charCount += word.length();
-				spaceCount++;
-				i++;
-			} else if (word.length() == lineMaxLength) {
-				System.out.println();
-				System.out.println(word);
-				charCount = 0;
-				spaceCount = 0;
-			} else {
-				System.out.println();
-				charCount = 0;
-				spaceCount = 0;
-			}
+		ArrayList<String> lines = new ArrayList<>(splitLines(message, lineMaxLength));
+
+		for (String line : lines) {
+			System.out.println(line);
 		}
-		System.out.println();
 
 		/*String[] textChunks = message.split("\\s");
 		System.out.print("           ");
@@ -85,5 +63,55 @@ public class AnimalGreeting {
 		System.out.println("  0__0  o");
 		System.out.println(" (    )");
 		System.out.println("(_m__m_)");*/
+	}
+
+	public ArrayList<String> splitLines(String message, int lineMaxLength) {
+		ArrayList<String> lines = new ArrayList<>();
+		int i = 0;
+		while (i < message.length()) {
+			lines.add(message.substring(i,
+				Math.min(i + lineMaxLength, message.length())));
+			i += lineMaxLength;
+		}
+		return lines;
+
+		/*ArrayList<String> lines = new ArrayList<>();
+		String line = "";
+		String[] words = message.split(" ");
+		int charCount = 0;
+		int spaceCount = 0;
+		for (int i = 0; i < words.length; ) {
+			String word = words[i];
+			if (word.length() > lineMaxLength) {
+				String fore = word.substring(0, lineMaxLength);
+				String hind = word.substring(lineMaxLength);
+				word = fore;
+				words[i] = hind;
+			}
+			if (charCount + spaceCount + word.length() < lineMaxLength) {
+				//System.out.print(word + " ");
+				line += word + " ";
+				charCount += word.length();
+				spaceCount++;
+				i++;
+			} else if (word.length() == lineMaxLength) {
+				//System.out.println();
+				//System.out.println(word);
+				lines.add(line);
+				line = "";
+				lines.add(word);
+				lines.add(words[i]);  // temporary line; preserve until the issue is not resolved
+				charCount = 0;
+				spaceCount = 0;
+			} else {
+				//System.out.println();
+				lines.add(line.trim());
+				line = "";
+				charCount = 0;
+				spaceCount = 0;
+			}
+		}
+		//System.out.println();
+		return lines;*/
 	}
 }
