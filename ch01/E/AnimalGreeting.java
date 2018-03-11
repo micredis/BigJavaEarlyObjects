@@ -15,11 +15,23 @@ import java.util.*;
 public class AnimalGreeting {
 	private static final String INDENT_10 = "          ";
 	private static final String INDENT_11 = "           ";
+	
 	public static void main(String[] args) {
-		new AnimalGreeting().go();
+		if (args.length > 0) {
+			StringBuilder sbMessage = new StringBuilder();
+			for (String word : args) {
+				sbMessage.append(word);
+				sbMessage.append(" ");
+			}
+			String message = sbMessage.toString().trim();
+			// 39 is the max length of a single line of the message
+			new AnimalGreeting().frogSays(message, 39);
+		} else {
+			new AnimalGreeting().frogReadsAndSays();
+		}
 	}
 
-	public void go() {
+	public void frogReadsAndSays() {
 		System.out.println("Enter a short message: ");
 		String message = readln();
 		// split the message into lines with maximum length of 39 characters
