@@ -7,14 +7,14 @@ from) the following:
  | | |   \ Coder!/
 (__|__)    -----
 
-
-
 */
 
 import java.io.*;
 import java.util.*;
 
 public class AnimalGreeting {
+	private static final String INDENT_10 = "          ";
+	private static final String INDENT_11 = "           ";
 	public static void main(String[] args) {
 		new AnimalGreeting().go();
 	}
@@ -22,7 +22,7 @@ public class AnimalGreeting {
 	public void go() {
 		System.out.println("Enter a short message: ");
 		String message = readln();
-		// split message into lines with maximum length of 39 characters
+		// split the message into lines with maximum length of 39 characters
 		frogSays(message, 39);
 	}
 
@@ -40,29 +40,48 @@ public class AnimalGreeting {
 
 	public void frogSays(String message, int lineMaxLength) {
 		ArrayList<String> lines = new ArrayList<>(splitLines(message, lineMaxLength));
-
-		for (String line : lines) {
-			System.out.println(line);
+		if (lines.size() == 1) {
+			System.out.print(INDENT_11);
+			for (int i = 0; i < lines.get(0).length() + 2; i++) {
+				System.out.print("_");
+			}
+			System.out.println();
+			System.out.println(INDENT_10 + "< " + lines.get(0) + " >");
+			System.out.print(INDENT_11);
+			for (int i = 0; i < lines.get(0).length() + 2; i++) {
+				System.out.print("-");
+			}
+			System.out.println();
+		} else if (lines.size() > 1) {
+			System.out.print(INDENT_11);
+			for (int i = 0; i < lineMaxLength + 2; i++) {
+				System.out.print("_");
+			}
+			System.out.println();
+			System.out.print(INDENT_10 + "/ " + lines.get(0));
+			for (int i = 0; i < lineMaxLength - lines.get(0).length(); i++) {
+				System.out.print(" ");
+			}
+			System.out.println(" \\");
+			for (int j = 1; j < lines.size() - 1; j++) {
+				System.out.print(INDENT_10 + "| " + lines.get(j));
+				for (int i = 0; i < lineMaxLength - lines.get(j).length(); i++) {
+					System.out.print(" ");
+				}
+				System.out.println(" |");
+			}
+			System.out.print(INDENT_10 + "\\ " + lines.get(lines.size() - 1));
+			for (int i = 0; i < lineMaxLength - lines.get(lines.size() - 1).length(); i++) {
+				System.out.print(" ");
+			}
+			System.out.println(" /");
+			System.out.print(INDENT_11);
+			for (int i = 0; i < lineMaxLength + 2; i++) {
+				System.out.print("-");
+			}
+			System.out.println();
 		}
-
-		/*String[] textChunks = message.split("\\s");
-		System.out.print("           ");
-		for (int i = 0; i < message.length() + 2; i++) {
-			System.out.print("_");
-		}
-		System.out.println();
-		for (int j = 0; j < textChunks.length; j++) {
-			System.out.println("          < " + textChunks[j] + " >");
-		}
-		System.out.print("           ");
-		for (int i = 0; i < message.length() + 2; i++) {
-			System.out.print("-");
-		}
-		System.out.println();
-		System.out.println("         O");		
-		System.out.println("  0__0  o");
-		System.out.println(" (    )");
-		System.out.println("(_m__m_)");*/
+		printFrog();
 	}
 
 	public ArrayList<String> splitLines(String message, int lineMaxLength) {
@@ -113,5 +132,12 @@ public class AnimalGreeting {
 		}
 		//System.out.println();
 		return lines;*/
+	}
+
+	public void printFrog() {
+		System.out.println("         O");
+		System.out.println("  0__0  o");
+		System.out.println(" (    )");
+		System.out.println("(_m__m_)");
 	}
 }
