@@ -27,15 +27,15 @@ public class AnimalGreeting {
 			// 39 is the max length of a single line of the message
 			new AnimalGreeting().frogSays(message, 39);
 		} else {
-			new AnimalGreeting().frogReadsAndSays();
+			new AnimalGreeting().frogReadsAndSays(39);
 		}
 	}
 
-	public void frogReadsAndSays() {
+	public void frogReadsAndSays(int lineMaxLength) {
 		System.out.println("Enter a short message: ");
 		String message = readln();
-		// split the message into lines with maximum length of 39 characters
-		frogSays(message, 39);
+		// split the message into lines with the maximum length of lineMaxLength characters
+		frogSays(message, lineMaxLength);
 	}
 
 	public String readln() {
@@ -97,53 +97,46 @@ public class AnimalGreeting {
 	}
 
 	public ArrayList<String> splitLines(String message, int lineMaxLength) {
+		String[] words = message.split(" ");
 		ArrayList<String> lines = new ArrayList<>();
-		int i = 0;
-		while (i < message.length()) {
-			lines.add(message.substring(i,
-				Math.min(i + lineMaxLength, message.length())));
-			i += lineMaxLength;
+		String line = "";
+		for (String word : words) {
+			String newLine = (line.length() > 0) ? line + " " + word : word;
+			if (newLine.length() < lineMaxLength) {
+				line = newLine;
+			} else if (newLine.length() == lineMaxLength) {
+				lines.add(newLine);
+				line = "";
+			} else if (word.length() >= lineMaxLength) {	// cowsay behavior for the long words
+				if (!line.isEmpty()) lines.add(line);
+				newLine = word.substring(0, lineMaxLength);
+				lines.add(newLine);
+				line = word.substring(lineMaxLength);
+			} else {	// if (newLine.length() > lineMaxLength && word.length() < lineMaxLength)
+				lines.add(line);
+				line = word;
+			}
+		}
+		if (!line.isEmpty()) {
+			lines.add(line);
 		}
 		return lines;
 
-		/*ArrayList<String> lines = new ArrayList<>();
-		String line = "";
-		String[] words = message.split(" ");
-		int charCount = 0;
-		int spaceCount = 0;
-		for (int i = 0; i < words.length; ) {
-			String word = words[i];
-			if (word.length() > lineMaxLength) {
-				String fore = word.substring(0, lineMaxLength);
-				String hind = word.substring(lineMaxLength);
-				word = fore;
-				words[i] = hind;
-			}
-			if (charCount + spaceCount + word.length() < lineMaxLength) {
-				//System.out.print(word + " ");
-				line += word + " ";
-				charCount += word.length();
-				spaceCount++;
-				i++;
-			} else if (word.length() == lineMaxLength) {
-				//System.out.println();
-				//System.out.println(word);
-				lines.add(line);
-				line = "";
-				lines.add(word);
-				lines.add(words[i]);  // temporary line; preserve until the issue is not resolved
-				charCount = 0;
-				spaceCount = 0;
-			} else {
-				//System.out.println();
-				lines.add(line.trim());
-				line = "";
-				charCount = 0;
-				spaceCount = 0;
-			}
-		}
-		//System.out.println();
-		return lines;*/
+		// The version below splits a message into lines of equal length
+		// despite the spaces between words, e.g.:
+		// "This is a sh
+		// ort example o
+		// f such a beha
+		// vior."
+
+		// ArrayList<String> lines = new ArrayList<>();
+		// int i = 0;
+		// while (i < message.length()) {
+		//	lines.add(message.substring(i,
+		//		Math.min(i + lineMaxLength, message.length())));
+		//	i += lineMaxLength;
+		// }
+		// return lines;
 	}
 
 	public void printFrog() {
