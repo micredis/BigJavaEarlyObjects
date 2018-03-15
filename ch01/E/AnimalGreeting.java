@@ -107,12 +107,14 @@ public class AnimalGreeting {
 			} else if (newLine.length() == lineMaxLength) {
 				lines.add(newLine);
 				line = "";
-			} else if (word.length() >= lineMaxLength) {	// cowsay behavior for the long words
+			}  // cowsay behavior for the long words:
+			else if (word.length() >= lineMaxLength) {
 				if (!line.isEmpty()) lines.add(line);
 				newLine = word.substring(0, lineMaxLength);
 				lines.add(newLine);
 				line = word.substring(lineMaxLength);
-			} else {	// if (newLine.length() > lineMaxLength && word.length() < lineMaxLength)
+			} // if (newLine.length() > lineMaxLength && word.length() < lineMaxLength)
+			else {
 				lines.add(line);
 				line = word;
 			}
