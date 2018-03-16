@@ -17,7 +17,7 @@ public class Pi {
 	}
 
 	public static void printPi() {
-		System.out.format("%.6f%n", getPi());
+		System.out.format("%.6f%n", Pi.getPi());
 	}
 
 	public static double getPi() {
