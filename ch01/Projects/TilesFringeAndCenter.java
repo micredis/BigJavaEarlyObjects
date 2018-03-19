@@ -50,7 +50,7 @@ public class TilesFringeAndCenter {
 				if (i == 0 || i == iMax - 1 ||
 					j == 0 || j == jMax - 1 ||
 					i == iMid && iMax > 4 &&
-					// check whether it's 2 or 3 tiles in the middle
+					// check whether it's 3 or 2 tiles in the middle
 					// (depending on an odd/even number of columns)
 					(jMax % 2 == 0 && jMax > 5 && j >= jMid - 1 && j <= jMid ||
 						jMax % 2 != 0 && jMax > 6 && j >= jMid - 1 && j <= jMid + 1)) {
