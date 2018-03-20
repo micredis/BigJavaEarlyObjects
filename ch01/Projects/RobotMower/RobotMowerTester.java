@@ -22,6 +22,11 @@ public class RobotMowerTester {
 		Lawn lawn = new Lawn(12, 9);
 		Robot robot = new Robot(1, 7);
 		lawn.setMower(robot.getX(), robot.getY());
+		/*String b = SurfaceElement.getElement(ElementType.BORDER);
+		System.out.println(b);*/
+		/*for (ElementType et : ElementType.values()) {
+			System.out.println(et);
+		}*/
 		String[][] field = lawn.getField();
 		for (int i = 0; i < field.length; i++) {
 			for (int j = 0; j < field[i].length; j++) {
