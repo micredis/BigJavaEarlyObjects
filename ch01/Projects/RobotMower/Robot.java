@@ -29,6 +29,7 @@ public class Robot {
 				break;
 			case RIGHT: this.xPos++;
 				break;
+			default: break;
 		}
 	}
 
@@ -42,6 +43,7 @@ public class Robot {
 				break;
 			case RIGHT: this.direction = UP;
 				break;
+			default: break;
 		}
 	}
 
@@ -55,12 +57,24 @@ public class Robot {
 				break;
 			case RIGHT: this.direction = DOWN;
 				break;
+			default: break;
 		}
 	}
 
-	public boolean isNextMowed(String pattern) {
-		//if (":".equals(pattern))
-		return false;
+	public Layout nextUnit(Layout[][] field) {
+		Layout unit = Layout.BORDER;
+		switch (this.direction) {
+			case UP: unit = field[yPos - 1][xPos];
+				break;
+			case DOWN: unit = field[yPos + 1][xPos];
+				break;
+			case LEFT: unit = field[yPos][xPos - 1];
+				break;
+			case RIGHT: unit = field[yPos][xPos + 1];
+				break;
+			default: break;
+		}
+		return unit;
 	}
 
 	public int getX() {
