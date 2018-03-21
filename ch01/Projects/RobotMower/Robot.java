@@ -63,16 +63,21 @@ public class Robot {
 
 	public Layout nextUnit(Layout[][] field) {
 		Layout unit = Layout.BORDER;
-		switch (this.direction) {
-			case UP: unit = field[yPos - 1][xPos];
-				break;
-			case DOWN: unit = field[yPos + 1][xPos];
-				break;
-			case LEFT: unit = field[yPos][xPos - 1];
-				break;
-			case RIGHT: unit = field[yPos][xPos + 1];
-				break;
-			default: break;
+		int i = this.yPos;
+		int j = this.xPos;
+		if (i > 0 && i < field.length &&
+			j > 0 && j < field[i].length) {
+			switch (this.direction) {
+				case UP: unit = (i - 1 > 0) ? field[i - 1][j] : unit;
+					break;
+				case DOWN: unit = (i + 1 < field.length) ? field[i + 1][j] : unit;
+					break;
+				case LEFT: unit = (j - 1 > 0) ? field[i][j - 1] : unit;
+					break;
+				case RIGHT: unit = (j + 1 < field[i].length) ? field[i][j + 1] : unit;
+					break;
+				default: break;
+			}
 		}
 		return unit;
 	}
