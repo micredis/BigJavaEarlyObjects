@@ -42,36 +42,26 @@ public class RobotMowerTester {
 		// place the robot in the bottom left corner
 		Robot robot = new Robot(1, lawnHeight - 2);
 		lawn.setMower(robot.getX(), robot.getY());
-		// mow the lawn
-		int untreatedLawnArea = lawnWidth * lawnHeight;
-		// TODO: replace 0 with perimeter?
-		while (untreatedLawnArea > 0) {
+		// untreatedLawnArea is (unitsOverall - unitsOfPerimeter)
+		int untreatedLawnArea = lawnWidth * lawnHeight - 2 * (lawnWidth + lawnHeight - 2);
+		// mow the lawn until only the borders and the robot (1) is left
+		while (untreatedLawnArea > 1) {
 			Layout nextUnit = robot.nextUnit(lawn.getField());
 			if (nextUnit == Layout.GRASS) {
 				lawn.mow(robot.getX(), robot.getY());
 				robot.move();
 				lawn.setMower(robot.getX(), robot.getY());
+				untreatedLawnArea--;
+				lawn.printField();
+				Thread.sleep(40);
+			} else {
+				robot.turnLeft();
 			}
-			untreatedLawnArea--;
 		}
-		/*System.out.println("Initial state of the field:");
-		lawn.printField();
-		// Thread.sleep(500);
 		
-		lawn.mow(robot.getX(), robot.getY());
-		robot.move();
-		lawn.setMower(robot.getX(), robot.getY());
-		//
-		System.out.println("After using a robot:");
-		lawn.printField();
-		System.out.println(Layout.BORDER == lawn.getField()[1][1]);
-		System.out.println(robot.nextUnit(lawn.getField()));
-		robot.turnRight();
-		System.out.println(robot.nextUnit(lawn.getField()));
-		robot.turnRight();
-		System.out.println(robot.nextUnit(lawn.getField()));*/
 		/*String b = Layout.toString(Layout.BORDER);
 		System.out.println("The symbol of the border is: " + b);*/
+		
 		/*for (Layout l : Layout.values()) {
 			System.out.println(l);
 		}*/
