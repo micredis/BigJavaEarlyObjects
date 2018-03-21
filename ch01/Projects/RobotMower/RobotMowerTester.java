@@ -18,13 +18,46 @@ The robot can:
 */
 
 public class RobotMowerTester {
-	public static void main(String[] args) {
-		Lawn lawn = new Lawn(12, 9);
-		Robot robot = new Robot(1, 7);
+	private static int lawnWidth;
+	private static int lawnHeight;
+
+	public static void main(String[] args) throws InterruptedException {
+		if (args.length != 2) {
+			System.err.println("Usage: java RobotMowerTester <lawn_width> <lawn_height>");
+			System.exit(-1);
+		}
+		try {
+			lawnWidth = Integer.parseInt(args[0]);
+			lawnHeight = Integer.parseInt(args[1]);
+		} catch (NumberFormatException ex) {
+			System.err.println("Must be integers: <lawn_width> <lawn_height>");
+			System.exit(-1);
+		}
+		Lawn lawn = new Lawn(lawnWidth, lawnHeight);
+		// if there's no place for the robot
+		if (lawnWidth < 3 || lawnHeight < 3) {
+			lawn.printField();
+			return;
+		}
+		// place the robot in the bottom left corner
+		Robot robot = new Robot(1, lawnHeight - 2);
 		lawn.setMower(robot.getX(), robot.getY());
-		System.out.println("Initial state of the field:");
+		// mow the lawn
+		int untreatedLawnArea = lawnWidth * lawnHeight;
+		// TODO: replace 0 with perimeter?
+		while (untreatedLawnArea > 0) {
+			Layout nextUnit = robot.nextUnit(lawn.getField());
+			if (nextUnit == Layout.GRASS) {
+				lawn.mow(robot.getX(), robot.getY());
+				robot.move();
+				lawn.setMower(robot.getX(), robot.getY());
+			}
+			untreatedLawnArea--;
+		}
+		/*System.out.println("Initial state of the field:");
 		lawn.printField();
-		//
+		// Thread.sleep(500);
+		
 		lawn.mow(robot.getX(), robot.getY());
 		robot.move();
 		lawn.setMower(robot.getX(), robot.getY());
@@ -32,21 +65,15 @@ public class RobotMowerTester {
 		System.out.println("After using a robot:");
 		lawn.printField();
 		System.out.println(Layout.BORDER == lawn.getField()[1][1]);
+		System.out.println(robot.nextUnit(lawn.getField()));
+		robot.turnRight();
+		System.out.println(robot.nextUnit(lawn.getField()));
+		robot.turnRight();
+		System.out.println(robot.nextUnit(lawn.getField()));*/
 		/*String b = Layout.toString(Layout.BORDER);
 		System.out.println("The symbol of the border is: " + b);*/
 		/*for (Layout l : Layout.values()) {
 			System.out.println(l);
 		}*/
-	}
-
-	static void printField(String[][] field) {
-		System.out.println();
-		for (int i = 0; i < field.length; i++) {
-			for (int j = 0; j < field[i].length; j++) {
-				System.out.print(field[i][j]);
-			}
-			System.out.println();
-		}
-		System.out.println();
 	}
 }
