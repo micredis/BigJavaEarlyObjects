@@ -42,28 +42,33 @@ public class RobotMowerTester {
 		// place the robot in the bottom left corner
 		Robot robot = new Robot(1, lawnHeight - 2);
 		lawn.setMower(robot.getX(), robot.getY());
-		// untreatedLawnArea is (unitsOverall - unitsOfPerimeter)
-		int untreatedLawnArea = lawnWidth * lawnHeight - 2 * (lawnWidth + lawnHeight - 2);
+		// initial number of grassUnits is
+		// (unitsOverall - unitsOfPerimeter)
+		int grassUnits = lawnWidth * lawnHeight - 2 * (lawnWidth + lawnHeight - 2);
 		// mow the lawn until only the borders and the robot (1) is left
-		while (untreatedLawnArea > 1) {
+		while (grassUnits > 1) {
 			Layout nextUnit = robot.nextUnit(lawn.getField());
 			if (nextUnit == Layout.GRASS) {
-				lawn.mow(robot.getX(), robot.getY());
-				robot.move();
-				lawn.setMower(robot.getX(), robot.getY());
-				untreatedLawnArea--;
-				lawn.printField();
-				Thread.sleep(40);
+				makeMove(robot, lawn);
+				grassUnits--;
 			} else {
 				robot.turnLeft();
 			}
 		}
-		
+
 		/*String b = Layout.toString(Layout.BORDER);
 		System.out.println("The symbol of the border is: " + b);*/
 		
 		/*for (Layout l : Layout.values()) {
 			System.out.println(l);
 		}*/
+	}
+
+	private static void makeMove(Robot robot, Lawn lawn) throws InterruptedException {
+		lawn.mow(robot.getX(), robot.getY());
+		robot.move();
+		lawn.setMower(robot.getX(), robot.getY());
+		lawn.printField();
+		Thread.sleep(40);
 	}
 }
