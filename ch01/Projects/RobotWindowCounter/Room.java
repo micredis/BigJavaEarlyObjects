@@ -1,5 +1,5 @@
 public class Room {
-	public static Layout[][] generateRoom(int width, int height) {
+	public static Layout[][] generateRoomPlan(int width, int height) {
 		Layout[][] plan = new Layout[height][width];
 		for (int i = 0; i < height; i++) {
 			for (int j = 0; j < width; j++) {
