@@ -56,38 +56,36 @@ public class RobotWindowCounterTester {
 		// place the robot in the room
 		Robot robot = new Robot(robotInitPosX, robotInitPosY);
 		roomPlan[robotInitPosY][robotInitPosX] = Layout.ROBOT;
-		/*// move the robot to the right border
+		// move the robot to the right border
 		while (robot.getX() < roomWidth - 2) {
 			makeMove(robot, roomPlan);
-		}*/
+		}
 		int windowsCount = 0;
+		boolean isWindowContinue = false;
 		int perimeterUnits = 2 * (roomWidth + roomHeight - 2);
 		// move along the wall until all the units of the perimeter are bypassed
 		while (perimeterUnits > 0) {
 			Layout nextUnit = robot.nextUnit(roomPlan);
 			if (nextUnit == Layout.FLOOR) {
-				makeMove(robot, room);
-			} else if (nextUnit == Layout.WINDOW) {
-				windowsCount++;
-				robot.turnLeft();
-			}
-			/*if (nextUnit == Layout.WINDOW) {
-				windowsCount++;
-				robot.turnLeft();
+				isWindowContinue = false;
+				makeMove(robot, roomPlan);
+				robot.turnRight();
 			} else if (nextUnit == Layout.WALL) {
-
-			}
-			if (nextUnit == Layout.WINDOW ||
-				nextUnit == Layout.WALL) {
-				makeMove(robot, room);
-				perimeterUnits--;
-			} else {
+				isWindowContinue = false;
 				robot.turnLeft();
-			}*/
+				perimeterUnits--;
+			} else if (nextUnit == Layout.WINDOW && !isWindowContinue) {
+				isWindowContinue = true;
+				windowsCount++;
+				robot.turnLeft();
+				perimeterUnits--;
+			} else if (nextUnit == Layout.WINDOW) {
+				isWindowContinue = true;
+				robot.turnLeft();
+				perimeterUnits--;
+			}
 		}
-
-		/*Layout[][] roomPlan = Room.generateRoomPlan(12, 11);
-		printRoom(roomPlan);*/
+		System.out.println("The number of windows is " + windowsCount);
 	}
 
 	private static void makeMove(Robot robot, Layout[][] roomPlan) throws InterruptedException {
@@ -95,15 +93,17 @@ public class RobotWindowCounterTester {
 		robot.move();
 		roomPlan[robot.getY()][robot.getX()] = Layout.ROBOT;
 		printRoom(roomPlan);
-		Thread.sleep(40);
+		Thread.sleep(80);
 	}
 
 	private static void printRoom(Layout[][] roomPlan) {
+		System.out.println();
 		for (Layout[] line : roomPlan) {
 			for (Layout l : line) {
 				System.out.print(Layout.toString(l));
 			}
 			System.out.println();
 		}
+		System.out.println();
 	}
 }
