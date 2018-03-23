@@ -65,8 +65,8 @@ public class Robot {
 		Layout unit = Layout.BORDER;
 		int i = this.yPos;
 		int j = this.xPos;
-		if (i > 0 && i < field.length &&
-			j > 0 && j < field[i].length) {
+		if (i >= 0 && i < field.length &&
+			j >= 0 && j < field[i].length) {
 			switch (this.direction) {
 				case UP: unit = (i - 1 > 0) ? field[i - 1][j] : unit;
 					break;
