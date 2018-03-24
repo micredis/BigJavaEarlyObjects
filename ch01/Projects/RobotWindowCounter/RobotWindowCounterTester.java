@@ -52,6 +52,7 @@ public class RobotWindowCounterTester {
 			robotInitPosY <= 0 || robotInitPosY >= roomHeight - 1) {
 			printRoom(roomPlan);
 			System.out.println("Error: Robot's position is out of bounds of the floor");
+			return;
 		}
 		// place the robot in the room
 		Robot robot = new Robot(robotInitPosX, robotInitPosY);
@@ -63,8 +64,9 @@ public class RobotWindowCounterTester {
 		int windowsCount = 0;
 		boolean isWindowContinue = false;
 		int perimeterUnits = 2 * (roomWidth + roomHeight - 2);
-		// move along the wall until all the units of the perimeter are bypassed
-		while (perimeterUnits > 0) {
+		// move along the wall until all the units of the inside
+		// perimeter (perimeterUnits - 4 corner units) are traversed
+		while (perimeterUnits - 4 > 0) {
 			Layout nextUnit = robot.nextUnit(roomPlan);
 			if (nextUnit == Layout.FLOOR) {
 				isWindowContinue = false;
@@ -93,7 +95,7 @@ public class RobotWindowCounterTester {
 		robot.move();
 		roomPlan[robot.getY()][robot.getX()] = Layout.ROBOT;
 		printRoom(roomPlan);
-		Thread.sleep(80);
+		Thread.sleep(160);
 	}
 
 	private static void printRoom(Layout[][] roomPlan) {
