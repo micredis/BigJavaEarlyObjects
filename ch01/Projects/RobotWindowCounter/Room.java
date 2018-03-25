@@ -15,7 +15,7 @@ public class Room {
 						i == height - 1 && j == width  - 2)) {
 					plan[i][j] = Layout.WALL;
 				} else if ((i == 0 || i == height - 1 ||
-					j == 0 || j == width - 1) && (Math.random() > 0.2)) {
+					j == 0 || j == width - 1) && (Math.random() > 0.4)) {
 					plan[i][j] = Layout.WALL;
 				} else if (i == 0 || i == height - 1 ||
 					j == 0 || j == width - 1) {
