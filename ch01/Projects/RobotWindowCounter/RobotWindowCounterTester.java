@@ -61,15 +61,16 @@ public class RobotWindowCounterTester {
 		while (robot.getX() < roomWidth - 2) {
 			makeMove(robot, roomPlan);
 		}
+		Layout nextUnit = robot.nextUnit(roomPlan);
+		Layout firstUnit = nextUnit;
 		int windowsCount = 0;
 		boolean isWindowContinue = false;
 		int perimeterUnits = 2 * (roomWidth + roomHeight - 2);
 		// move along the wall until all the units of the inside
 		// perimeter (perimeterUnits - 4 corner units) are traversed
-		while (perimeterUnits - 4 > 0) {
-			Layout nextUnit = robot.nextUnit(roomPlan);
+		while (perimeterUnits > 4) {
+			nextUnit = robot.nextUnit(roomPlan);
 			if (nextUnit == Layout.FLOOR) {
-				isWindowContinue = false;
 				makeMove(robot, roomPlan);
 				robot.turnRight();
 			} else if (nextUnit == Layout.WALL) {
@@ -87,6 +88,11 @@ public class RobotWindowCounterTester {
 				perimeterUnits--;
 			}
 		}
+		// we must not count the first window twice if it's long
+		// and we've started and finished traversing at its middle
+		if (firstUnit == Layout.WINDOW && nextUnit == Layout.WINDOW) {
+			windowsCount--;
+		}
 		System.out.println("The number of windows is " + windowsCount);
 	}
 
@@ -95,7 +101,7 @@ public class RobotWindowCounterTester {
 		robot.move();
 		roomPlan[robot.getY()][robot.getX()] = Layout.ROBOT;
 		printRoom(roomPlan);
-		Thread.sleep(160);
+		Thread.sleep(80);
 	}
 
 	private static void printRoom(Layout[][] roomPlan) {
