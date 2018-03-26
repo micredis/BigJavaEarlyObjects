@@ -57,16 +57,35 @@ public class RobotWindowCounterTester {
 		// place the robot in the room
 		Robot robot = new Robot(robotInitPosX, robotInitPosY);
 		roomPlan[robotInitPosY][robotInitPosX] = Layout.ROBOT;
-		// move the robot to the right border
-		while (robot.getX() < roomWidth - 2) {
-			makeMove(robot, roomPlan);
+		printRoom(roomPlan);
+		// if the robot is not in a corner or at a border,
+		// move it to the right border
+		if (robotInitPosX != 1 && robotInitPosX != roomWidth - 2 &&
+			robotInitPosY != 1 && robotInitPosY != roomHeight - 2) {
+			while (robot.getX() < roomWidth - 2) {
+				makeMove(robot, roomPlan);
+			}
+		}
+		// face the robot left if it's in the top row
+		// or in the first left column except if it's
+		// in the top right corner or in the bottom
+		// left corner
+		if (robotInitPosY == 1 && robotInitPosX != roomWidth - 2 ||
+			robotInitPosX == 1 && robotInitPosY != roomHeight - 2) {
+			robot.turnLeft();
+			robot.turnLeft();
+		}
+		// face the robot up if it's in the top right corner
+		if (robotInitPosY == 1 && robotInitPosX == roomWidth - 2) {
+			robot.turnLeft();
 		}
 		Layout nextUnit = robot.nextUnit(roomPlan);
 		Layout firstUnit = nextUnit;
 		int windowsCount = 0;
 		boolean isWindowContinue = false;
 		int perimeterUnits = 2 * (roomWidth + roomHeight - 2);
-		// move along the wall until all the units of the inside
+		// move counterclockwise along the wall
+		// until all the units of the inside
 		// perimeter (perimeterUnits - 4 corner units) are traversed
 		while (perimeterUnits > 4) {
 			nextUnit = robot.nextUnit(roomPlan);
@@ -88,6 +107,7 @@ public class RobotWindowCounterTester {
 				perimeterUnits--;
 			}
 		}
+		printRoom(roomPlan);
 		// we must not count the first window twice if it's long
 		// and we've started and finished traversing at its middle
 		if (firstUnit == Layout.WINDOW && nextUnit == Layout.WINDOW) {
