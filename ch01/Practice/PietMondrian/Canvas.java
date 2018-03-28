@@ -1,7 +1,28 @@
 public class Canvas {
+	private static Layout[][] canvas;
+
 	public static Layout[][] generateCanvas(int width, int height) {
-		Layout[][] canvas = new Layout[height][width];
-		int numOfRectangles = random(4, 15);
+		canvas = new Layout[height][width];
+		for (int i = 0; i < height; i++) {
+			for (int j = 0; j < width; j++) {
+				int jFirst = j;
+				while (jFirst < width &&
+					canvas[i][jFirst] != null) {
+					jFirst++;
+				}
+				int jLast = jFirst;
+				while (jLast < width &&
+					canvas[i][jLast] == null) {
+					jLast++;
+				}
+				int iLast = random(i + 1, height);
+				jLast = random(jFirst + 1, jLast);
+				Layout color = Layout.getRandomColor();
+				putRect(color, i, iLast, jFirst, jLast);
+			}
+		}
+
+		/*int numOfRectangles = random(4, 15);
 		int iFirst = 0;
 		int jFirst = 0;
 		for (int r = 0; r < numOfRectangles; r++) {
@@ -10,7 +31,7 @@ public class Canvas {
 			int jLast = random(jFirst + 1, width - 2);
 			drawRect(canvas, iFirst, iLast, jFirst, jLast);
 			//iLast = (iLast)
-		}
+		}*/
 
 		/*for (int i = 0; i < height - 1; i++) {
 			for (int j = 0; j < width - 1; j++) {
@@ -37,6 +58,16 @@ public class Canvas {
 	}
 
 	private static int random(int min, int max) {
+		if (min > max) return max;
 		return (int) (Math.random() * (max - min + 1) + min);
+	}
+
+	private static void putRect(Layout color,
+		int iFirst, int iLast, int jFirst, int jLast) {
+		for (int i = iFirst; i < iLast; i++) {
+			for (int j = jFirst; j < jLast; j++) {
+				Canvas.canvas[i][j] = color;
+			}
+		}
 	}
 }

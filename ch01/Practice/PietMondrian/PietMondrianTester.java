@@ -32,6 +32,9 @@ public class PietMondrianTester {
 	public static void main(String[] args) throws InterruptedException {
 		System.out.println(Layout.COLOR1.ordinal());
 		System.out.println(Layout.getRandomColor());
+		Layout[][] canvas = Canvas.generateCanvas(38, 23);
+		printCanvas(canvas);
+
 		/*if (args.length != 4) {
 			System.err.println("Usage: java RobotWindowCounterTester <room_width> <room_height> <robot_x_coord> <robot_y_coord>");
 			System.exit(-1);
@@ -132,9 +135,9 @@ public class PietMondrianTester {
 		Thread.sleep(80);
 	}*/
 
-	private static void printRoom(Layout[][] roomPlan) {
+	private static void printCanvas(Layout[][] canvas) {
 		System.out.println();
-		for (Layout[] line : roomPlan) {
+		for (Layout[] line : canvas) {
 			for (Layout l : line) {
 				System.out.print(Layout.toString(l));
 			}
