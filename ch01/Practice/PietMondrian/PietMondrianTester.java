@@ -41,11 +41,11 @@ public class PietMondrianTester {
 		try {
 			width = Integer.parseInt(args[0]);
 			height = Integer.parseInt(args[1]);
-			if (width < 1 || height < 1) {
+			if (width < 3 || height < 3) {
 				throw new NumberFormatException();
 			}
 		} catch (NumberFormatException ex) {
-			System.err.println("Must be positive integers: " + 
+			System.err.println("Must be more than 3: " + 
 				"<picture_width> <picture_height>");
 			System.exit(-1);
 		}
@@ -57,7 +57,11 @@ public class PietMondrianTester {
 		System.out.println();
 		for (Layout[] line : canvas) {
 			for (Layout l : line) {
-				System.out.print(Layout.toString(l));
+				if (l == null) {
+					System.out.print(Layout.toString(Layout.WHITE));
+				} else {
+					System.out.print(Layout.toString(l));
+				}
 			}
 			System.out.println();
 		}
