@@ -1,14 +1,14 @@
 public enum Layout {
-	WALL, WINDOW, FLOOR, ROBOT;
+	WALL, EXIT, FLOOR, ROBOT;
 
 	public static String toString(Layout layout) {
 		String representation = "?";
 		switch (layout) {
 			case WALL: representation = "X";
 				break;
-			case WINDOW: representation = ":";
+			case EXIT: representation = " ";
 				break;
-			case FLOOR: representation = " ";
+			case FLOOR: representation = ".";
 				break;
 			case ROBOT: representation = "R";
 				break;

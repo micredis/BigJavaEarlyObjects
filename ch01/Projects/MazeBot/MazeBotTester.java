@@ -8,6 +8,19 @@ Write an algorithm that lets the robot escape the maze. You may assume
 that there is an exit that is reachable by the right-hand rule. Your
 challenge is to deal with situations in which the path turns. The robot
 can’t see turns. It can only see what is directly in front of it.
+
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+X.................X........X......X
+X..X.....X.....................X..X
+XXXXXXXXXXXXXXX.XXXXXX.XXXXXXXXXX.X
+X....X...X........X......X.....X..X
+X........X........X............X..X
+ ....X...XXXXX.XXXXXXXXXXXX.XXXXXXX
+X....X...X........X...X........X..X
+XXXXXXX.XXXXXXXX.XX...XXXXXXXX....X
+X ................X............X..
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
 */
 
 public class MazeBotTester {
