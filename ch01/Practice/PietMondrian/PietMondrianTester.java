@@ -28,6 +28,8 @@ E.g.:
 
 */
 
+// You may need several attempts to get an acceptable "painting"
+
 public class PietMondrianTester {
 	private static int width;
 	private static int height;
