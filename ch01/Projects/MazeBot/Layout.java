@@ -16,4 +16,21 @@ public enum Layout {
 		}
 		return representation;
 	}
+
+	public static Layout toLayout(String str) {
+		Layout layout;
+		switch (str) {
+			case "X": layout = WALL;
+				break;
+			case " ": layout = EXIT;
+				break;
+			case ".": layout = FLOOR;
+				break;
+			case "R": layout = ROBOT;
+				break;
+			default: layout = WALL;
+				break;
+		}
+		return layout;
+	}
 }
