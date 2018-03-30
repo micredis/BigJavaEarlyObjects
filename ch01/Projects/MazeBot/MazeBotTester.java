@@ -29,6 +29,22 @@ public class MazeBotTester {
 		int entranceRow = getEntranceCoord(maze);
 		Robot robot = new Robot(0, entranceRow);
 		placeRobotAtEntrance(robot, maze);
+		int moves = 0;
+		Layout nextUnit = null;
+		robot.turnRight();
+		do {
+			nextUnit = robot.nextUnit(maze);
+			if (nextUnit == Layout.WALL) {
+				robot.turnLeft();
+			} else if (nextUnit == Layout.EXIT) {
+				makeMove(robot, maze);
+			} else {
+				makeMove(robot, maze);
+				robot.turnRight();
+				moves++;
+			}
+		} while (nextUnit != Layout.EXIT &&
+			moves < maze.length * maze[0].length);
 	}
 
 	// Find a gap at the leftmost column of a maze
