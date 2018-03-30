@@ -1,30 +1,40 @@
 public class Maze {
-	public static Layout[][] generateRoomPlan(int width, int height) {
-		Layout[][] plan = new Layout[height][width];
+	private static final Layout[][] defaultMaze;
+	static {
+		int width = 35;
+		int height = 11;
+		StringBuilder sbMaze = new StringBuilder();
+		sbMaze.append("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+		sbMaze.append("X.................X........X......X");
+		sbMaze.append("X..X.....X.....................X..X");
+		sbMaze.append("XXXXXXXXXXXXXXX.XXXXXX.XXXXXXXXXX.X");
+		sbMaze.append("X....X...X........X......X.....X..X");
+		sbMaze.append("X........X........X............X..X");
+		sbMaze.append(" ....X...XXXXX.XXXXXXXXXXXX.XXXXXXX");
+		sbMaze.append("X....X...X........X...X........X..X");
+		sbMaze.append("XXXXXXX.XXXXXXXX.XX...XXXXXXXX....X");
+		sbMaze.append("X ................X............X.. ");
+		sbMaze.append("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+		char[] chMaze = sbMaze.toString().toCharArray();
+		int chIndex = 0;
+		defaultMaze = new Layout[height][width];
 		for (int i = 0; i < height; i++) {
 			for (int j = 0; j < width; j++) {
-				if ((i == 0 || i == height - 1) && 
-					(j == 0 || j == width - 1) ||
-					(i == 0 && j == 1 ||
-						i == 0 && j == width - 2 ||
-						i == 1 && j == 0 ||
-						i == 1 && j == width - 1 ||
-						i == height - 2 && j == 0 ||
-						i == height - 2 && j == width - 1 ||
-						i == height - 1 && j == 1 ||
-						i == height - 1 && j == width  - 2)) {
-					plan[i][j] = Layout.WALL;
-				} else if ((i == 0 || i == height - 1 ||
-					j == 0 || j == width - 1) && (Math.random() > 0.4)) {
-					plan[i][j] = Layout.WALL;
-				} else if (i == 0 || i == height - 1 ||
-					j == 0 || j == width - 1) {
-					plan[i][j] = Layout.WINDOW;
-				} else {
-					plan[i][j] = Layout.FLOOR;
-				}
+				defaultMaze[i][j] = Layout.toLayout(String.valueOf(chMaze[chIndex]));
+				chIndex++;
 			}
 		}
-		return plan;
+	}
+
+	public static Layout[][] getDefaultMaze() {
+		int height = defaultMaze.length;
+		int width = defaultMaze[0].length;
+		Layout[][] copy = new Layout[height][width];
+		for (int i = 0; i < height; i++) {
+			for (int j = 0; j < width; j++) {
+				copy[i][j] = defaultMaze[i][j];
+			}
+		}
+		return copy;
 	}
 }
