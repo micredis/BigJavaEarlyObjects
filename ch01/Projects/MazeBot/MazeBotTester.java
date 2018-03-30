@@ -31,17 +31,17 @@ public class MazeBotTester {
 		placeRobotAtEntrance(robot, maze);
 	}
 
-	// find a gap at the leftmost column of a maze
+	// Find a gap at the leftmost column of a maze
 	// and return the number of its row,
-	// assuming that there's just one entrance point
+	// assuming that there's just one entrance point.
+	// If there's no gap found, return -1.
 	private static int getEntranceCoord(Layout[][] maze) {
-		int i = 0;
-		for (; i < maze.length; i++) {
+		for (int i = 0; i < maze.length; i++) {
 			if (maze[i][0] == Layout.EXIT) {
 				return i;
 			}
 		}
-		return i;
+		return (-1);
 	}
 
 	private static void placeRobotAtEntrance(Robot robot, Layout[][] maze) {
