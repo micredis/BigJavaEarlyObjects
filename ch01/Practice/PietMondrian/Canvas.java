@@ -21,9 +21,9 @@ public class Canvas {
 				}
 				Layout color = Layout.getRandomColor();
 				putRect(color, i, iLast, jFirst, jLast);
-				putExternalBorders();
 			}
 		}
+		putExternalBorders();
 		return canvas;
 	}
 
