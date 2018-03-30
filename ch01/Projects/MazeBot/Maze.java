@@ -13,7 +13,7 @@ public class Maze {
 		sbMaze.append(" ....X...XXXXX.XXXXXXXXXXXX.XXXXXXX");
 		sbMaze.append("X....X...X........X...X........X..X");
 		sbMaze.append("XXXXXXX.XXXXXXXX.XX...XXXXXXXX....X");
-		sbMaze.append("X ................X............X.. ");
+		sbMaze.append("X.................X............X.. ");
 		sbMaze.append("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 		char[] chMaze = sbMaze.toString().toCharArray();
 		int chIndex = 0;
