@@ -9,7 +9,7 @@ can’t just glance at a list and find the best one.
 import java.util.*;
 
 public class ClosestFromTheLeft {
-	private static final Map<String, Double> defaultCatalog;
+	private static final Map<String, Double> DEFAULT_CATALOG;
 	static {
 		Map<String, Double> map = new HashMap<>();
 		map.put("Robot Mower", 89.50);
@@ -22,7 +22,7 @@ public class ClosestFromTheLeft {
 		map.put("Duster Bot Gen 2", 99.90);
 		map.put("Iron Gardner", 48.80);
 		map.put("Fullerene Gardner", 58.85);
-		defaultCatalog = Collections.unmodifiableMap(map);
+		DEFAULT_CATALOG = Collections.unmodifiableMap(map);
 	}
 	
 	public static void main(String[] args) {
@@ -30,7 +30,7 @@ public class ClosestFromTheLeft {
 	}
 
 	public void go() {
-		Map<String, Double> bargains = findBargains(ClosestFromTheLeft.defaultCatalog);
+		Map<String, Double> bargains = findBargains(ClosestFromTheLeft.DEFAULT_CATALOG);
 		printMap(bargains);
 	}
 
