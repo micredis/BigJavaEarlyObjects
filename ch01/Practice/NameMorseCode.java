@@ -11,7 +11,7 @@ import java.io.InputStreamReader;
 import java.io.IOException;
 
 public class NameMorseCode {
-	private static final Map<Character, String> codeTable;
+	private static final Map<Character, String> CODE_TABLE;
 	static {
 		Map<Character, String> map = new HashMap<>();
 		map.put('A', ".-");
@@ -40,7 +40,7 @@ public class NameMorseCode {
 		map.put('X', "-..-");
 		map.put('Y', "-.--");
 		map.put('Z', "--..");
-		codeTable = Collections.unmodifiableMap(map);
+		CODE_TABLE = Collections.unmodifiableMap(map);
 	}
 
 	public static void main(String[] args) {
@@ -51,7 +51,7 @@ public class NameMorseCode {
 		System.out.print("Enter your name: ");
 		char[] input = readInputChars();
 		for (char c : input) {
-			System.out.print(codeTable.get(Character.toUpperCase(c)) + " ");
+			System.out.print(CODE_TABLE.get(Character.toUpperCase(c)) + " ");
 		}
 		System.out.println();
 	}
